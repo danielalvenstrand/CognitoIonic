@@ -19,15 +19,15 @@ import { LoginComponent, RegisterComponent } from '../';
 export class ForgotPasswordStep2Component implements CognitoCallback {
 
   verificationCode:string;
-  username:string;
+  phone_number:string;
   password:string;
 
   constructor(public nav:NavController, public navParam:NavParams, public alertCtrl:AlertController, public userService:UserLoginService) {
-    this.username = navParam.get("username");
+    this.phone_number = navParam.get("phone_number");
   }
 
   onNext() {
-    this.userService.confirmNewPassword(this.username, this.verificationCode, this.password, this);
+    this.userService.confirmNewPassword(this.phone_number, this.verificationCode, this.password, this);
   }
 
   cognitoCallback(message:string) {

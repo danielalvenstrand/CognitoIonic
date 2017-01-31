@@ -20,17 +20,17 @@ export class ConfirmRegistrationComponent {
 
   constructor(public nav:NavController, public userRegistration:UserRegistrationService, public navParam:NavParams, public alertCtrl:AlertController) {
     console.log("Entered ConfirmRegistrationComponent");
-    console.log("nav param username: " + this.navParam.get("username"))
+    console.log("nav param username: " + this.navParam.get("phone_number"))
   }
 
   ionViewLoaded() {
     console.log("Entered ionViewDidEnter");
-    console.log("username: " + this.navParam.get("username"));
+    console.log("username: " + this.navParam.get("phone_number"));
   }
 
   onConfirmRegistration() {
     console.log("Confirming registration");
-    this.userRegistration.confirmRegistration(this.navParam.get("username"), this.confirmationCode, this);
+    this.userRegistration.confirmRegistration(this.navParam.get("phone_number"), this.confirmationCode, this);
   }
 
   cognitoCallback(message:string, result:any) {
