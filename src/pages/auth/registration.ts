@@ -37,7 +37,8 @@ export class RegisterComponent implements CognitoCallback {
     if (message != null) { 
       this.doAlert("Registration", message);
     } else { 
-      console.log("in callback...result: " + result);
+      console.log("in callback...result (test): ", result);
+      console.dir(result);
       this.nav.push(ConfirmRegistrationComponent, {
         'phone_number': this.registrationUser.phone_number
       });

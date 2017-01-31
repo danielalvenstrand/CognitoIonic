@@ -114,21 +114,22 @@ declare let AWSCognito:any;
     }
 
     register(user:RegistrationUser, callback:CognitoCallback):void {
-      console.log("user: " + user);
+      console.log("user: ", user);
 
       let attributeList = [];
 
-      let dataEmail = {
+      let dataPhone = {
         Name: 'phone_number',
         Value: user.phone_number
       };
-      attributeList.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataEmail));
+      attributeList.push(new AWSCognito.CognitoIdentityServiceProvider.CognitoUserAttribute(dataPhone));
 
       this.cUtil.getUserPool().signUp(user.phone_number, user.password, attributeList, null, function (err, result) {
         if (err) {
           callback.cognitoCallback(err.message, null);
         } else {
-          console.log("registered user: " + result);
+          console.dir(result);
+          console.dir(result.user.getUsername());
           callback.cognitoCallback(null, result);
         }
       });
@@ -138,11 +139,15 @@ declare let AWSCognito:any;
     confirmRegistration(phone_number:string, confirmationCode:string, callback:CognitoCallback):void {
 
       let userData = {
-        Phone_Number: phone_number,
+        Username: phone_number,
         Pool: this.cUtil.getUserPool()
       };
 
+      console.log("UserData: ", userData)
+
       let cognitoUser = new AWSCognito.CognitoIdentityServiceProvider.CognitoUser(userData);
+
+      console.log("Cognito user: ",cognitoUser)
 
       cognitoUser.confirmRegistration(confirmationCode, true, function (err, result) {
         if (err) {
@@ -155,7 +160,7 @@ declare let AWSCognito:any;
 
     resendCode(phone_number:string, callback:CognitoCallback):void {
       let userData = {
-        Phone_Number: phone_number,
+        Username: phone_number,
         Pool: this.cUtil.getUserPool()
       };
 
@@ -186,13 +191,13 @@ declare let AWSCognito:any;
       AWSCognito.config.update({accessKeyId: 'anything', secretAccessKey: 'anything'})
 
       let authenticationData = {
-        Phone_Number: phone_number,
+        Username: phone_number,
         Password: password,
       };
       let authenticationDetails = new AWSCognito.CognitoIdentityServiceProvider.AuthenticationDetails(authenticationData);
 
       let userData = {
-        Phone_Number: phone_number,
+        Username: phone_number,
         Pool: this.cUtil.getUserPool()
       };
 
@@ -211,7 +216,7 @@ declare let AWSCognito:any;
 
     forgotPassword(phone_number:string, callback:CognitoCallback) {
       let userData = {
-        Phone_Number: phone_number,
+        Username: phone_number,
         Pool: this.cUtil.getUserPool()
       };
 
@@ -232,7 +237,7 @@ declare let AWSCognito:any;
 
     confirmNewPassword(phone_number:string, verificationCode:string, password:string, callback:CognitoCallback) {
       let userData = {
-        Phone_Number: phone_number,
+        Username: phone_number,
         Pool: this.cUtil.getUserPool()
       };
 
