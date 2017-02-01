@@ -18,7 +18,6 @@ import { RegisterComponent,ForgotPasswordStep1Component } from '../';
 })
 export class LoginComponent implements CognitoCallback, LoggedInCallback {
   phone_number:string;
-  password:string;
   phone: string;
 
   constructor(public nav:NavController,
@@ -29,7 +28,10 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback {
     platform: Platform) {
     console.log("LoginComponent constructor");
     if (navParam != null && navParam.get("phone") != null)
-      this.phone_number = navParam.get("phone");
+      {
+        this.phone_number = navParam.get("phone");
+        this.signMeIn();
+      }
     platform.ready().then(()=>{
       Sim.getSimInfo().then((result) => {
         console.log(result);
@@ -45,11 +47,11 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback {
 
   signMeIn() {
     console.log("in onLogin");
-    if (this.phone_number == null || this.password == null) {
+    if (this.phone_number == null) {
       this.doAlert("Error", "All fields are required");
       return;
     }
-    this.userService.authenticate(this.phone_number, this.password, this);
+    this.userService.authenticate(this.phone_number, this);
   }
 
   cognitoCallback(message:string, result:any) {

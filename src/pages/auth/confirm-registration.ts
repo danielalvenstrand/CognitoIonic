@@ -38,11 +38,11 @@ export class ConfirmRegistrationComponent {
       this.doAlert("Confirmation", message);
     } else { 
       console.log("Entered ConfirmRegistrationComponent");
-      let phone = this.navParam.get("phone");
+      let phone = this.navParam.get("phone_number");
 
       if (phone != null)
         this.nav.push(LoginComponent, {
-          'phone': phone
+          'phone_number': phone
         });
       else
         this.nav.push(LoginComponent);
