@@ -210,6 +210,9 @@ declare let AWSCognito:any;
         onFailure: function (err) {
           callback.cognitoCallback(err.message, null);
         },
+        mfaRequired: function (codeDeliverDetails) {
+          cognitoUser.sendMFACode(prompt("MFA code",""), this);
+        }
       });
     }
 

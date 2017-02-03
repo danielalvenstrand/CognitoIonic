@@ -27,9 +27,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback {
     public eventService:EventsService,
     platform: Platform) {
     console.log("LoginComponent constructor");
-    if (navParam != null && navParam.get("phone") != null)
+    if (navParam != null && navParam.get("phone_number") != null)
       {
-        this.phone_number = navParam.get("phone");
+        this.phone_number = navParam.get("phone_number");
         this.signMeIn();
       }
     platform.ready().then(()=>{
@@ -90,5 +90,9 @@ export class LoginComponent implements CognitoCallback, LoggedInCallback {
     alert.present();
   }
 
+  gotoHome(): void {
+    console.log("TEST")
+    this.nav.setRoot(HomePage);
+  }
 
 }

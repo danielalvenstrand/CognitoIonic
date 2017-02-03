@@ -19,6 +19,7 @@ import {
 } from '../providers/cognito-service';
 import { AwsUtil } from '../providers/aws-service';
 import { EventsService } from '../providers/events-service';
+import { AnimationController } from '../providers/animations';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { EventsService } from '../providers/events-service';
   CognitoUtil,
   EventsService,
   AwsUtil,
+  AnimationController,
   Storage
   ]
 })
